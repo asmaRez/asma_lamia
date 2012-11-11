@@ -13,6 +13,7 @@ public class Pret implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="id_credit")
 	private int idCredit;
 
@@ -26,7 +27,7 @@ public class Pret implements Serializable {
 
 	//bi-directional many-to-one association to Client
     @ManyToOne
-	@JoinColumn(name="id_pers")
+	@JoinColumn(name="id_client")
 	private Client client;
 
     public Pret() {

@@ -13,26 +13,23 @@ public class Authentification implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name="id_pers")
-	private int idPers;
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name="id_auth")
+	private int idAuth;
 
 	private String login;
 
 	private String pwd;
 
-	//bi-directional one-to-one association to Administrateur
-	@OneToOne(mappedBy="authentification")
-	private Administrateur administrateur;
-
     public Authentification() {
     }
 
-	public int getIdPers() {
-		return this.idPers;
+	public int getIdAuth() {
+		return this.idAuth;
 	}
 
-	public void setIdPers(int idPers) {
-		this.idPers = idPers;
+	public void setIdAuth(int idAuth) {
+		this.idAuth = idAuth;
 	}
 
 	public String getLogin() {
@@ -51,12 +48,4 @@ public class Authentification implements Serializable {
 		this.pwd = pwd;
 	}
 
-	public Administrateur getAdministrateur() {
-		return this.administrateur;
-	}
-
-	public void setAdministrateur(Administrateur administrateur) {
-		this.administrateur = administrateur;
-	}
-	
 }

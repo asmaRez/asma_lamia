@@ -13,8 +13,9 @@ public class ChargeClientele implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name="id_pers")
-	private int idPers;
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name="id_charge")
+	private int idCharge;
 
 	private String mail;
 
@@ -22,18 +23,18 @@ public class ChargeClientele implements Serializable {
 
 	//bi-directional one-to-one association to Administrateur
 	@OneToOne
-	@JoinColumn(name="id_pers")
+	@JoinColumn(name="id_charge")
 	private Administrateur administrateur;
 
     public ChargeClientele() {
     }
 
-	public int getIdPers() {
-		return this.idPers;
+	public int getIdCharge() {
+		return this.idCharge;
 	}
 
-	public void setIdPers(int idPers) {
-		this.idPers = idPers;
+	public void setIdCharge(int idCharge) {
+		this.idCharge = idCharge;
 	}
 
 	public String getMail() {

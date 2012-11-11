@@ -14,8 +14,9 @@ public class Client implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name="id_pers")
-	private int idPers;
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name="id_client")
+	private int idClient;
 
 	private String cin;
 
@@ -39,12 +40,12 @@ public class Client implements Serializable {
     public Client() {
     }
 
-	public int getIdPers() {
-		return this.idPers;
+	public int getIdClient() {
+		return this.idClient;
 	}
 
-	public void setIdPers(int idPers) {
-		this.idPers = idPers;
+	public void setIdClient(int idClient) {
+		this.idClient = idClient;
 	}
 
 	public String getCin() {
