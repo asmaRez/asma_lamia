@@ -3,56 +3,113 @@ package tn.com.isamm.projet.banque.main;
 import java.util.Iterator;
 import java.util.List;
 
-import javax.persistence.EntityManager;
 
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import javax.persistence.PersistenceContext;
+
 import javax.persistence.Query;
 
+import tn.com.isamm.projet.banque.dao.JPA.AdministrateurDaoJpa;
+import tn.com.isamm.projet.banque.dao.JPA.ChargeClienteleDaoJpa;
+import tn.com.isamm.projet.banque.dao.JPA.ClientDaoJpa;
+import tn.com.isamm.projet.banque.dao.JPA.DaoManagerJPA;
 
-import tn.com.isamm.projet.banque.model.Administrateur;
 import tn.com.isamm.projet.banque.model.ChargeClientele;
 import tn.com.isamm.projet.banque.model.Client;
-import tn.com.isamm.projet.banque.model.Pret;
-import tn.com.isamm.projet.banque.service.AdministrateurService;
-import tn.com.isamm.projet.banque.service.ChargeClienteleService;
-import tn.com.isamm.projet.banque.service.ClientService;
 
-public class Test {
+public class ClientTest {
 
-	ClientService clientService;
-	ChargeClienteleService chargeService;
-	AdministrateurService adminService;
+	ClientDaoJpa clientDao;
+	ChargeClienteleDaoJpa chargeDao;
+	AdministrateurDaoJpa adminDao;
+	@SuppressWarnings("rawtypes")
+	DaoManagerJPA manager;
 	
-	public ChargeClienteleService getChargeService() {
-		return chargeService;
+
+	public ClientDaoJpa getClientDao() {
+		return clientDao;
 	}
-	public void setChargeService(ChargeClienteleService chargeService) {
-		this.chargeService = chargeService;
+
+
+	public void setClientDao(ClientDaoJpa clientDao) {
+		this.clientDao = clientDao;
 	}
-	public ClientService getClientService() {
-		return clientService;
+
+
+	public ChargeClienteleDaoJpa getChargeDao() {
+		return chargeDao;
 	}
-	public void setClientService(ClientService clientService) {
-		this.clientService = clientService;
-	}	
-	public AdministrateurService getAdminService() {
-		return adminService;
+
+
+	public void setChargeDao(ChargeClienteleDaoJpa chargeDao) {
+		this.chargeDao = chargeDao;
 	}
-	public void setAdminService(AdministrateurService adminService) {
-		this.adminService = adminService;
+
+
+	public AdministrateurDaoJpa getAdminDao() {
+		return adminDao;
 	}
+
+
+	public void setAdminDao(AdministrateurDaoJpa adminDao) {
+		this.adminDao = adminDao;
+	}
+
+
+
+
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		/*Test test= new Test();
-		test.ajouterClient(0, "091456123", "Zouaghi", "lamia", "20712172", "zz@gmail.com", "lamia", 123);
-*/
-	
+		
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("BEL");
+		
+		ClientDaoJpa clDao = new ClientDaoJpa();
+		clDao.em = emf.createEntityManager();
+		Client client = new Client();
+		client.setCin(9123456);
+		client.setNom("Zouaghi");
+		client.setPrenom( "lamia");
+		client.setTelephone("20712172");
+		client.setMail("zz@gmail.com");
+		client.setLogin("lamia");
+		client.setPwd("123");
+		
+		Query query = clDao.em.createNativeQuery("select * from charge_clientele a where a.id_charge = ?1");
+		query.setParameter(1, 1);
+		
+		  List results = query.getResultList( ); 
+		  Iterator it = results.iterator( );
+
+		    while (it.hasNext( )) {
+
+		       Object[] result = (Object[])it.next();
+
+		       int id =(Integer) result[0]; 
+		       String matricule =(String) result[2]; 
+		       String mail =(String) result[3]; 
+		       ChargeClientele charge = new ChargeClientele();
+		       charge.setIdCharge(id);
+		       charge.setMail(mail);
+		       charge.setMatricule(matricule);
+		       client.setChargeClientele(charge);
+		    }
+		clDao.ajouterClient(client);
+		
+		
+		
+		
+		
+		
+		
+		
+		//test.ajouterClient( 91456123, "Rezgui", "asma", "20712172", "zz@gmail.com", "lamia", "123");
+
+		
+	
+		/*EntityManagerFactory emf = Persistence.createEntityManagerFactory("BEL");
 		EntityManager em = emf.createEntityManager();
 		
 
@@ -95,7 +152,7 @@ public class Test {
 		
 		em.getTransaction().begin();
 		em.merge(pret);
-		em.getTransaction().commit();
+		em.getTransaction().commit();*/
 		
 		/*Client client = new Client();
 		client.setCin(9123456);
@@ -162,23 +219,55 @@ public class Test {
 	}
 
 
-	public void ajouterClient(int id,int cin, String nom, String prenom, String tel,
+/*	public void ajouterClient(int cin, String nom, String prenom, String tel,
 			String mail, String login, String pwd) {
+		//EntityManager em = manager.getEntityManager();
+		
+		ChargeClientele charge = getCharge();
+		ClientDaoJpa clDao = new ClientDaoJpa();
+		clDao.em = emf.createEntityManager();
 		Client client = new Client();
-		client.setCin(cin);
-		client.setNom(nom);
-		client.setPrenom(prenom);
-		client.setTelephone(tel);
-		client.setMail(mail);
-		client.setLogin(login);
-		client.setPwd(pwd);
-		clientService.ajouterClient(client);
+		client.setCin(9123456);
+		client.setNom("Zouaghi");
+		client.setPrenom( "lamia");
+		client.setTelephone("20712172");
+		client.setMail("zz@gmail.com");
+		client.setLogin("lamia");
+		client.setPwd("123");
+		client.setChargeClientele(charge);
+		clientDao.ajouterClient(client);
+		
 	}
 	
-	 public void ajouterCharge(String matricule,String mail) {
+	
+	public ChargeClientele getCharge(){
+		Query query = clientDao.em.createNativeQuery("select * from charge_clientele a where a.id_charge = ?1");
+		query.setParameter(1, 1);
+		
+		  List results = query.getResultList( ); 
+		  Iterator it = results.iterator( );
+		  ChargeClientele charge = new ChargeClientele();
+		    while (it.hasNext( )) {
+
+		       Object[] result = (Object[])it.next();
+
+		       int id =(Integer) result[0]; 
+		       String matricule =(String) result[2]; 
+		       String mail =(String) result[3]; 
+		      
+		       charge.setIdCharge(id);
+		       charge.setMail(mail);
+		       charge.setMatricule(matricule);
+		       
+		    }
+		return charge;
+		
+	}*/
+	
+	/* public void ajouterCharge(String matricule,String mail) {
 			ChargeClientele charge = new ChargeClientele();
 			charge.setMatricule(matricule);
 			charge.setMail(mail);
-			chargeService.ajouterCharge(charge);
-		}
+			chargeDao.ajouterCharge(charge);
+		}*/
 }

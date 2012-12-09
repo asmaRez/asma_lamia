@@ -1,12 +1,17 @@
 package tn.com.isamm.projet.banque.bean;
 
+import tn.com.isamm.projet.banque.dao.AdministrateurDao;
+import tn.com.isamm.projet.banque.dao.ChargeClienteleDao;
 import tn.com.isamm.projet.banque.dao.JPA.ChargeClienteleDaoJpa;
-import tn.com.isamm.projet.banque.service.*;
 import tn.com.isamm.projet.banque.model.*;
 public class ClientBean {
 	private String matricule;
 	private String mail;
 	private ChargeClientele charge;
+	
+	private AdministrateurDao adminDao;
+	private ChargeClienteleDao chargeDao;
+	
 	private Administrateur administrateur;
 	public Administrateur getAdministrateur() {
 		return administrateur;
@@ -17,8 +22,6 @@ public class ClientBean {
 	}
 	private Integer idAdmin;
 	
-	 ChargeClienteleService chargeService;
-	 AdministrateurService adminService;
 	 public ClientBean(){
 		 
 	 }
@@ -39,29 +42,14 @@ public ChargeClientele getCharge() {
 		this.idAdmin = idAdmin;
 	}
 
-	public ChargeClienteleService getChargeService() {
-		return chargeService;
-	}
-
-	public void setChargeService(ChargeClienteleService chargeService) {
-		this.chargeService = chargeService;
-	}
-
-	public AdministrateurService getAdminService() {
-		return adminService;
-	}
-
-	public void setAdminService(AdministrateurService adminService) {
-		this.adminService = adminService;
-	}
-
+	
 public String ajouterCharge(){
 	charge.setMatricule(matricule);
 	charge.setMail(mail);
 	//Administrateur administrateur;
-	administrateur=adminService.getAdmin(idAdmin);
+	//administrateur=adminDao.getAdmin(idAdmin);
 	charge.setAdministrateur(administrateur);
-	chargeService.ajouterCharge(charge);
+	chargeDao.ajouterCharge(charge);
 	return "hello";
 }
 public String getMatricule() {

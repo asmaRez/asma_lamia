@@ -9,15 +9,17 @@ import javax.persistence.Persistence;
 
 import tn.com.isamm.projet.banque.dao.DaoManager;
 
-public abstract class DaoManagerJPA<T> {
+public  class DaoManagerJPA<T> {
 	public static Logger logger = Logger.getLogger(DaoManagerJPA.class.getName());
 	private Long idUser;
 	private Long idFonc;
 
+	
 	public DaoManagerJPA() {
+		super();
 	}
 
-	protected EntityManager getEntityManager() {
+	public EntityManager getEntityManager() {
 	EntityManagerFactory emf = Persistence.createEntityManagerFactory("BEL");
 	return emf.createEntityManager();
 	}

@@ -12,7 +12,6 @@ import javax.persistence.Persistence;
 import javax.persistence.Query;
 
 import tn.com.isamm.projet.banque.dao.JPA.ChargeClienteleDaoJpa;
-import tn.com.isamm.projet.banque.service.*;
 import tn.com.isamm.projet.banque.model.*;
 
 @ManagedBean

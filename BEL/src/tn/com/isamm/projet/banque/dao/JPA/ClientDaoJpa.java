@@ -12,6 +12,8 @@ import tn.com.isamm.projet.banque.model.Client;
 
 public class ClientDaoJpa implements ClientDao {
 
+	public static EntityManager em;
+	
 	@Override
 	public List<Client> consulterClient() {
 		// TODO Auto-generated method stub
@@ -27,8 +29,8 @@ public class ClientDaoJpa implements ClientDao {
 	@Override
 	public void ajouterClient(Client client) {
 		// TODO Auto-generated method stub
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("MYBEL");
-		EntityManager em = emf.createEntityManager();
+		//EntityManagerFactory emf = Persistence.createEntityManagerFactory("BEL");
+		//EntityManager em = emf.createEntityManager();
 		em.getTransaction().begin();
 		em.merge(client);
 		em.getTransaction().commit();
