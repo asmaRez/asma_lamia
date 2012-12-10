@@ -18,4 +18,12 @@ public class PretDaoJpa implements PretDao {
 		em.getTransaction().commit();
 		
 	}
+
+	@Override
+	public void supprimerPret(Pret pret) {
+		// TODO Auto-generated method stub
+		em.getTransaction().begin();
+		em.remove(pret);
+		em.getTransaction().commit();
+	}
 }

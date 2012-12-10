@@ -64,12 +64,12 @@ public class ClientTest {
 		client.setMail(mail);
 		client.setLogin(login);
 		client.setPwd(pwd);
-		ChargeClientele charge = getClient(2);
+		ChargeClientele charge = getCharge(2);
 		client.setChargeClientele(charge);
 		clDao.ajouterClient(client);
 	}
 	
-	public ChargeClientele getClient(int ident){
+	public ChargeClientele getCharge(int ident){
 		Query query = clDao.em.createNativeQuery("select * from charge_clientele a where a.id_charge = ?"+ident);
 		query.setParameter(ident, ident);
 		

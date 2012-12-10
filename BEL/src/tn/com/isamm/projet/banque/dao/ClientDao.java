@@ -9,6 +9,7 @@ public interface ClientDao {
     public List<Client> consulterClient();
     public Client getClient(int id);
 	public void ajouterClient(Client client);
+	public void supprimerClient(Client client);
 
 
 }
