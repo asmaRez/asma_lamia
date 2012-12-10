@@ -14,6 +14,14 @@ public class ClientDaoJpa implements ClientDao {
 
 	public static EntityManager em;
 	
+	public static EntityManager getEm() {
+		return em;
+	}
+
+	public static void setEm(EntityManager em) {
+		ClientDaoJpa.em = em;
+	}
+
 	@Override
 	public List<Client> consulterClient() {
 		// TODO Auto-generated method stub
@@ -33,6 +41,14 @@ public class ClientDaoJpa implements ClientDao {
 		em.merge(client);
 		em.getTransaction().commit();
 		
+	}
+	
+
+	public void supprimerClient(Client client) {
+		// TODO Auto-generated method stub
+		em.getTransaction().begin();
+		em.remove(client);
+		em.getTransaction().commit();
 	}
 
 

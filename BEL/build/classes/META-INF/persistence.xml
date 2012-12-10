@@ -11,6 +11,7 @@
 		<class>tn.com.isamm.projet.banque.model.Pret</class>
 		<class>tn.com.isamm.projet.banque.model.Transaction</class>
 		<properties>
+			<property name="toplink.logging.level" value="INFO" />
 			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/BanqueEnLigne"/>
 			<property name="javax.persistence.jdbc.user" value="root"/>
 			<property name="javax.persistence.jdbc.password" value="root"/>

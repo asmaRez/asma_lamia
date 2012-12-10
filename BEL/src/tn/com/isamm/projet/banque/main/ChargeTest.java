@@ -20,43 +20,9 @@ import tn.com.isamm.projet.banque.model.Client;
 
 public class ChargeTest {
 
-	ClientDaoJpa clientDao;
-	ChargeClienteleDaoJpa chargeDao;
-	AdministrateurDaoJpa adminDao;
-	@SuppressWarnings("rawtypes")
-	DaoManagerJPA manager;
-	
+	static ChargeClienteleDaoJpa chargeDao = new ChargeClienteleDaoJpa();
 
-	public ClientDaoJpa getClientDao() {
-		return clientDao;
-	}
-
-
-	public void setClientDao(ClientDaoJpa clientDao) {
-		this.clientDao = clientDao;
-	}
-
-
-	public ChargeClienteleDaoJpa getChargeDao() {
-		return chargeDao;
-	}
-
-
-	public void setChargeDao(ChargeClienteleDaoJpa chargeDao) {
-		this.chargeDao = chargeDao;
-	}
-
-
-	public AdministrateurDaoJpa getAdminDao() {
-		return adminDao;
-	}
-
-
-	public void setAdminDao(AdministrateurDaoJpa adminDao) {
-		this.adminDao = adminDao;
-	}
-
-
+	static EntityManagerFactory emf = Persistence.createEntityManagerFactory("BEL");
 
 
 	/**
@@ -65,20 +31,45 @@ public class ChargeTest {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("BEL");
+
+		ChargeTest test = new ChargeTest();
+		test.ajouterCharge("14566", "aaa@gmail.com");
+		//test.supprimerCharge(5);
+
+	}
+	
+	public void supprimerCharge(int id){
 		
-		ChargeClienteleDaoJpa chargeDao = new ChargeClienteleDaoJpa();
+		chargeDao.em = emf.createEntityManager();
+		
+		ChargeClientele charge = chargeDao.em.find(ChargeClientele.class, id);
+		if (charge == null)		    
+		      throw new IllegalArgumentException("Suppression impossible. Ce client n'existe pas.");		  
+		else 
+		{
+			chargeDao.supprimerCharge(charge);
+		}
+	}
+
+	public void ajouterCharge( String matricule,String mail) {
+
 		chargeDao.em = emf.createEntityManager();
 		ChargeClientele charge = new ChargeClientele();
-		charge.setMatricule("123456");
-		charge.setMail("aaa@gmail.com");
-		
-		Query query = chargeDao.em.createNativeQuery("select * from Administrateur a where a.id_admin = ?1");
-		query.setParameter(1, 1);
+		charge.setMatricule(matricule);
+		charge.setMail(mail);
+		Administrateur admin = getAdmin(1);
+		charge.setAdministrateur(admin);
+		chargeDao.ajouterCharge(charge);
+	}
+	
+	public Administrateur getAdmin(int ident){
+		Query query = chargeDao.em.createNativeQuery("select * from Administrateur a where a.id_admin = ?"+ident);
+		query.setParameter(ident, ident);
 		
 		  List results = query.getResultList( ); 
 		  Iterator it = results.iterator( );
-
+		  
+	       Administrateur admin = new Administrateur();
 		    while (it.hasNext( )) {
 
 		       Object[] result = (Object[])it.next();
@@ -86,20 +77,12 @@ public class ChargeTest {
 		       int id =(Integer) result[0]; 
 		       String login =(String) result[1]; 
 		       String pwd =(String) result[2]; 
-		       Administrateur admin = new Administrateur();
 		       admin.setIdAdmin(id);
 		       admin.setLogin(login);
 		       admin.setPwd(pwd);
-		       charge.setAdministrateur(admin);
+		       
 		    }
-		
-		
-		chargeDao.ajouterCharge(charge);
-		
-		
-		
-		
-		
+			return admin;
 	}
 
 }

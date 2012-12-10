@@ -19,8 +19,7 @@ import tn.com.isamm.projet.banque.model.Client;
 
 public class ClientTest {
 
-	ClientDaoJpa clDao = new ClientDaoJpa();
-	ClientDaoJpa clientDao;
+	static ClientDaoJpa clDao = new ClientDaoJpa();
 
 	static EntityManagerFactory emf = Persistence.createEntityManagerFactory("BEL");
 	
@@ -32,17 +31,29 @@ public class ClientTest {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		
-
 		ClientTest test = new ClientTest();
-		test.ajouterClient(92654,"lll","ggg","547855","fddff","hgh","ffg");
+		
+		//test.ajouterClient(92654,"lll","ggg","547855","fddff","hgh","ffg");
+		test.supprimerClient(18);
+		
 		
 	}
 
-	
+	public void supprimerClient(int id){
+		
+		clDao.em = emf.createEntityManager();
+		
+		Client client = clDao.em.find(Client.class, id);
+		if (client == null)		    
+		      throw new IllegalArgumentException("Suppression impossible. Ce client n'existe pas.");		  
+		else 
+		{
+			clDao.supprimerClient(client);
+		}
+	}
 
 	public void ajouterClient(int cin, String nom, String prenom, String tel,
 			String mail, String login, String pwd) {
-		
 
 		clDao.em = emf.createEntityManager();
 		Client client = new Client();
@@ -53,11 +64,9 @@ public class ClientTest {
 		client.setMail(mail);
 		client.setLogin(login);
 		client.setPwd(pwd);
-		
 		ChargeClientele charge = getClient(2);
 		client.setChargeClientele(charge);
 		clDao.ajouterClient(client);
-		
 	}
 	
 	public ChargeClientele getClient(int ident){

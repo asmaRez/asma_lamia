@@ -33,7 +33,7 @@ public class Client implements Serializable {
 	private String telephone;
 
 	//bi-directional many-to-one association to ChargeClientele
-    @ManyToOne
+    @ManyToOne()
 	@JoinColumn(name="id_charge")
 	private ChargeClientele chargeClientele;
 

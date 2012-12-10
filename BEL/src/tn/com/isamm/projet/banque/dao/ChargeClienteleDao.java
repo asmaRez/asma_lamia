@@ -11,6 +11,7 @@ public interface ChargeClienteleDao {
     public ChargeClientele getCharge(int id);
     public void activerCompte(int id);
     public void ajouterCharge(ChargeClientele charge);
+    public void supprimerCharge(ChargeClientele charge);
 
 
 }
