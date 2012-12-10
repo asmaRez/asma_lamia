@@ -19,43 +19,11 @@ import tn.com.isamm.projet.banque.model.Client;
 
 public class ClientTest {
 
+	ClientDaoJpa clDao = new ClientDaoJpa();
 	ClientDaoJpa clientDao;
-	ChargeClienteleDaoJpa chargeDao;
-	AdministrateurDaoJpa adminDao;
-	@SuppressWarnings("rawtypes")
-	DaoManagerJPA manager;
+
+	static EntityManagerFactory emf = Persistence.createEntityManagerFactory("BEL");
 	
-
-	public ClientDaoJpa getClientDao() {
-		return clientDao;
-	}
-
-
-	public void setClientDao(ClientDaoJpa clientDao) {
-		this.clientDao = clientDao;
-	}
-
-
-	public ChargeClienteleDaoJpa getChargeDao() {
-		return chargeDao;
-	}
-
-
-	public void setChargeDao(ChargeClienteleDaoJpa chargeDao) {
-		this.chargeDao = chargeDao;
-	}
-
-
-	public AdministrateurDaoJpa getAdminDao() {
-		return adminDao;
-	}
-
-
-	public void setAdminDao(AdministrateurDaoJpa adminDao) {
-		this.adminDao = adminDao;
-	}
-
-
 
 
 	/**
@@ -64,89 +32,57 @@ public class ClientTest {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("BEL");
+
+		ClientTest test = new ClientTest();
+		test.ajouterClient(92654,"lll","ggg","547855","fddff","hgh","ffg");
 		
-		ClientDaoJpa clDao = new ClientDaoJpa();
+	}
+
+	
+
+	public void ajouterClient(int cin, String nom, String prenom, String tel,
+			String mail, String login, String pwd) {
+		
+
 		clDao.em = emf.createEntityManager();
 		Client client = new Client();
-		client.setCin(9123456);
-		client.setNom("Zouaghi");
-		client.setPrenom( "lamia");
-		client.setTelephone("20712172");
-		client.setMail("zz@gmail.com");
-		client.setLogin("lamia");
-		client.setPwd("123");
+		client.setCin(cin);
+		client.setNom(nom);
+		client.setPrenom(prenom);
+		client.setTelephone(tel);
+		client.setMail(mail);
+		client.setLogin(login);
+		client.setPwd(pwd);
 		
-		Query query = clDao.em.createNativeQuery("select * from charge_clientele a where a.id_charge = ?1");
-		query.setParameter(1, 1);
-		
-		  List results = query.getResultList( ); 
-		  Iterator it = results.iterator( );
-
-		    while (it.hasNext( )) {
-
-		       Object[] result = (Object[])it.next();
-
-		       int id =(Integer) result[0]; 
-		       String matricule =(String) result[2]; 
-		       String mail =(String) result[3]; 
-		       ChargeClientele charge = new ChargeClientele();
-		       charge.setIdCharge(id);
-		       charge.setMail(mail);
-		       charge.setMatricule(matricule);
-		       client.setChargeClientele(charge);
-		    }
+		ChargeClientele charge = getClient(2);
+		client.setChargeClientele(charge);
 		clDao.ajouterClient(client);
 		
-		
-		
-	}
-
-
-/*	public void ajouterClient(int cin, String nom, String prenom, String tel,
-			String mail, String login, String pwd) {
-		//EntityManager em = manager.getEntityManager();
-		
-		ChargeClientele charge = getCharge();
-		ClientDaoJpa clDao = new ClientDaoJpa();
-		clDao.em = emf.createEntityManager();
-		Client client = new Client();
-		client.setCin(9123456);
-		client.setNom("Zouaghi");
-		client.setPrenom( "lamia");
-		client.setTelephone("20712172");
-		client.setMail("zz@gmail.com");
-		client.setLogin("lamia");
-		client.setPwd("123");
-		client.setChargeClientele(charge);
-		clientDao.ajouterClient(client);
-		
 	}
 	
-	
-	public ChargeClientele getCharge(){
-		Query query = clientDao.em.createNativeQuery("select * from charge_clientele a where a.id_charge = ?1");
-		query.setParameter(1, 1);
+	public ChargeClientele getClient(int ident){
+		Query query = clDao.em.createNativeQuery("select * from charge_clientele a where a.id_charge = ?"+ident);
+		query.setParameter(ident, ident);
 		
 		  List results = query.getResultList( ); 
 		  Iterator it = results.iterator( );
-		  ChargeClientele charge = new ChargeClientele();
-		    while (it.hasNext( )) {
+
+	       ChargeClientele charge = new ChargeClientele();
+
+	       while (it.hasNext( )) {
 
 		       Object[] result = (Object[])it.next();
 
 		       int id =(Integer) result[0]; 
 		       String matricule =(String) result[2]; 
-		       String mail =(String) result[3]; 
-		      
+		       String mail1 =(String) result[3]; 
+
 		       charge.setIdCharge(id);
-		       charge.setMail(mail);
+		       charge.setMail(mail1);
 		       charge.setMatricule(matricule);
 		       
 		    }
-		return charge;
-		
-	}*/
-	
-	
+			return charge;
+	}
+
 }
