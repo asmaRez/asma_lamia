@@ -35,51 +35,10 @@ public class PretTest {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		
-	/*	
-		pretDao.em = emf.createEntityManager();
-
-		Pret pret = new Pret();
-		pret.setMontant(1000);
-		pret.setSalaire(1200);
-		pret.setDuree(20);
-		
-		Query query = pretDao.em.createNativeQuery("select * from client a where a.id_client = ?1");
-		query.setParameter(1, 1);
-		
-		  List results = query.getResultList( ); 
-		  Iterator it = results.iterator( );
-
-		    while (it.hasNext( )) {
-
-		       Object[] result = (Object[])it.next();
-
-		       int id =(Integer) result[0]; 
-		       String nom =(String) result[2]; 
-		       String prenom =(String) result[3]; 
-		       int cin =(Integer) result[4]; 
-		       String tel =(String) result[5]; 
-		       String mail =(String) result[6]; 
-		       String login =(String) result[7]; 
-		       String pwd =(String) result[8]; 
-
-		       Client client = new Client();
-		       client.setIdClient(id);
-		       client.setNom(nom);
-		       client.setPrenom(prenom);
-		       client.setCin(cin);
-		       client.setTelephone(tel);
-		       client.setMail(mail);
-		       client.setLogin(login);
-		       client.setPwd(pwd);
-		       
-		       pret.setClient(client);
-		    }
-		
-			pretDao.ajouterPret(pret);*/
-		
 		PretTest test = new PretTest();
+		
 		test.ajouterPret(5000, 1200, 10);
-		test.supprimerPret(2);
+		//test.supprimerPret(5);
 	}
 	
 	public void supprimerPret(int id){

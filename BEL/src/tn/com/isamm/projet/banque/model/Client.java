@@ -31,6 +31,16 @@ public class Client implements Serializable {
 	private String pwd;
 
 	private String telephone;
+	
+	private int num_compte;
+
+	public int getNum_compte() {
+		return num_compte;
+	}
+
+	public void setNum_compte(int num_compte) {
+		this.num_compte = num_compte;
+	}
 
 	//bi-directional many-to-one association to ChargeClientele
     @ManyToOne()

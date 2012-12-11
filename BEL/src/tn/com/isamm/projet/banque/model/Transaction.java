@@ -19,14 +19,9 @@ public class Transaction implements Serializable {
 
     @Temporal( TemporalType.DATE)
 	private Date date;
-
 	private int montant;
-
 	private String rib;
 
-	//bi-directional one-to-one association to Credit
-	@OneToOne(mappedBy="transaction")
-	private Credit credit;
 
     public Transaction() {
     }
@@ -63,12 +58,6 @@ public class Transaction implements Serializable {
 		this.rib = rib;
 	}
 
-	public Credit getCredit() {
-		return this.credit;
-	}
 
-	public void setCredit(Credit credit) {
-		this.credit = credit;
-	}
 	
 }

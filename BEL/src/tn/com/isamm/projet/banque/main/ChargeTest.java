@@ -30,9 +30,9 @@ public class ChargeTest {
 	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		
-
+	
 		ChargeTest test = new ChargeTest();
+		
 		test.ajouterCharge("14566", "aaa@gmail.com");
 		//test.supprimerCharge(5);
 
@@ -44,7 +44,7 @@ public class ChargeTest {
 		
 		ChargeClientele charge = chargeDao.em.find(ChargeClientele.class, id);
 		if (charge == null)		    
-		      throw new IllegalArgumentException("Suppression impossible. Ce client n'existe pas.");		  
+		      throw new IllegalArgumentException("Suppression impossible. Ce charge n'existe pas.");		  
 		else 
 		{
 			chargeDao.supprimerCharge(charge);

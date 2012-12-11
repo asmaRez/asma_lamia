@@ -22,14 +22,8 @@ public class Credit implements Serializable {
 
 	private int montant;
 
-	private int numcompte;
-
 	private String rib;
 
-	//bi-directional one-to-one association to Transaction
-	@OneToOne
-	@JoinColumn(name="num")
-	private Transaction transaction;
 
     public Credit() {
     }
@@ -58,14 +52,6 @@ public class Credit implements Serializable {
 		this.montant = montant;
 	}
 
-	public int getNumcompte() {
-		return this.numcompte;
-	}
-
-	public void setNumcompte(int numcompte) {
-		this.numcompte = numcompte;
-	}
-
 	public String getRib() {
 		return this.rib;
 	}
@@ -74,12 +60,5 @@ public class Credit implements Serializable {
 		this.rib = rib;
 	}
 
-	public Transaction getTransaction() {
-		return this.transaction;
-	}
 
-	public void setTransaction(Transaction transaction) {
-		this.transaction = transaction;
-	}
-	
 }
